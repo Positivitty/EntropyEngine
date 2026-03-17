@@ -1,0 +1,51 @@
+id,name,email,department,status,notes
+1,Alice Nguyen,alice.nguyen@acme.corp,Engineering,active,Team lead for backend services
+2,  Bob Martinez  ,bob.martinez@acme.corp,Engineering,active,Joined Q3 2024
+3,Carol Whitfield,carol.whitfield@acme.corp,Sales,active,"Regional manager, West Coast"
+4,David Park,david.park@acme.corp,Engineering,inactive,On sabbatical until March
+5,Eva Johansson  ,eva.johansson@acme.corp,Marketing,active,Content strategy lead
+6,Frank O'Brien,frank.obrien@acme.corp,Sales,active,  Top performer Q4
+7,Grace Kim,grace.kim@acme.corp,Engineering,active,Full-stack developer
+8,  Hector Ramirez,hector.ramirez@acme.corp,Operations,active,Facilities coordinator
+9,Irene Volkov,irene.volkov@acme.corp,Engineering,active,Security team
+10,James Calloway,james.calloway@acme.corp,Marketing,active,Brand design specialist
+11,Karen Liu,karen.liu@acme.corp,Sales,inactive,Transferred to APAC division
+12,Liam Foster  ,liam.foster@acme.corp,Engineering,active,DevOps infrastructure
+13,Mona Patel,mona.patel@acme.corp,Operations,active,  Procurement specialist
+14,Nathan Cross,nathan.cross@acme.corp,Engineering,active,Mobile team lead
+15,Olivia Chen,olivia.chen@acme.corp,Marketing,active,Analytics and reporting
+16,  Peter Brandt  ,peter.brandt@acme.corp,Sales,active,Enterprise accounts
+17,Quinn Diaz,quinn.diaz@acme.corp,Engineering,active,Data platform engineer
+18,Rachel Stone,rachel.stone@acme.corp,Operations,active,HR liaison
+19,Samuel Okafor,samuel.okafor@acme.corp,Engineering,inactive,  Parental leave
+20,Tina Morales,tina.morales@acme.corp,Marketing,active,Social media manager
+21,Umar Sheikh,umar.sheikh@acme.corp,Sales,active,Mid-market segment
+22,Victoria Hale  ,victoria.hale@acme.corp,Engineering,active,QA automation lead
+23,William Tanaka,william.tanaka@acme.corp,Operations,active,IT support manager
+24,Xena Kapoor,xena.kapoor@acme.corp,Engineering,active,ML infrastructure
+25,  Yusuf Amir  ,yusuf.amir@acme.corp,Marketing,active,Event coordination
+26,Zara Lindgren,zara.lindgren@acme.corp,Sales,active,Channel partnerships
+27,Alice Nguyen,alice.nguyen@acme.corp,Engineering,active,Team lead for backend services
+28,Aaron Wells,aaron.wells@acme.corp,Engineering,active,  Cloud migration project
+29,Brenda Collins,brenda.collins@acme.corp,Operations,active,Vendor management
+30,Carlos Vega,carlos.vega@acme.corp,Sales,inactive,On performance review
+31,Diana Ross  ,diana.ross@acme.corp,Marketing,active,Campaign optimization
+32,Ethan Brooks,ethan.brooks@acme.corp,Engineering,active,API gateway team
+33,  Fiona Grant  ,fiona.grant@acme.corp,Sales,active,SMB territory
+34,George Huang,george.huang@acme.corp,Engineering,active,Distributed systems
+35,Hannah Price,hannah.price@acme.corp,Operations,active,  Office management
+36,Isaac Torres,isaac.torres@acme.corp,Marketing,active,Product marketing
+37,Julia Sanders,julia.sanders@acme.corp,Engineering,active,Frontend platform
+2,  Bob Martinez  ,bob.martinez@acme.corp,Engineering,active,Joined Q3 2024
+38,Kevin Murphy,kevin.murphy@acme.corp,Sales,active,  Strategic accounts
+39,Laura Jensen,laura.jensen@acme.corp,Operations,active,Compliance officer
+6,Frank O'Brien,frank.obrien@acme.corp,Sales,active,  Top performer Q4
+40,Michael Dunn,michael.dunn@acme.corp,Engineering,active,Observability tooling
+41,Nina Petrova,nina.petrova@acme.corp,Marketing,inactive,Maternity leave
+42,Oscar Lee,oscar.lee@acme.corp,Engineering,active,Database administration
+9,Irene Volkov,irene.volkov@acme.corp,Engineering,active,Security team
+43,Paula Griffin  ,paula.griffin@acme.corp,Sales,active,International markets
+44,  Raj Mehta,raj.mehta@acme.corp,Operations,active,Logistics coordinator
+45,Sophie Adams,sophie.adams@acme.corp,Engineering,active,  CI/CD pipeline owner
+15,Olivia Chen,olivia.chen@acme.corp,Marketing,active,Analytics and reporting
+46,Trevor Hall,trevor.hall@acme.corp,Engineering,active,Release management
