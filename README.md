@@ -1,8 +1,8 @@
 # ⚡ Entropy Engine
 
-**Watch your data shrink in real time through a futuristic system interface.**
+**Detect, understand, and fix inefficient data in real time.**
 
-Entropy Engine is a data optimization visualizer with two interfaces: a terminal-based CLI with animated ASCII progress bars, and a web application with a Marathon-style sci-fi dashboard. Feed it JSON or CSV, and watch your data flow through a 4-stage compression pipeline in real time.
+Entropy Engine is a data efficiency analyzer that detects inefficiencies in datasets, explains why they matter with engineer-level insight, lets you simulate fixes safely, and exports optimized data and reports. The interface is a Marathon-style sci-fi dashboard with real-time animations.
 
 ---
 
@@ -10,81 +10,95 @@ Entropy Engine is a data optimization visualizer with two interfaces: a terminal
 
 > Demo GIF coming soon
 
+### Issue Detection
+
+Upload a dataset and Entropy Engine immediately identifies:
+- Duplicate records from ETL pipelines or retry logic
+- High string repetition in low-cardinality fields
+- Excess whitespace from CSV parsers or user input
+- Structural redundancy exploitable by compression
+
+Each issue includes impact metrics, field-level breakdowns, engineer-level explanations, and projections to 1M records.
+
 ### Terminal Interface
 
 ```
 ▸ INITIALIZING ENTROPY ENGINE...
-▸ LOADING CORE MODULES...
 ▸ SYSTEM READY.
-
-┌─── DEDUPLICATION ────────────────────┐
-  [████████████░░░░░░░░░░░░░░░░░░] 40%
-
-▸ DEDUP COMPLETE
-▸ 3.2 KB → 2.4 KB  [-25.0%]
+▸ ANALYSIS COMPLETE: 4 issue(s) detected
+▸ EFFICIENCY SCORE: 44/100
+▸ SIMULATING: DEDUP...
+▸ DEDUP: 7.4 KB → 6.8 KB [-7.9%]
 ```
-
-### Web Interface
-
-4-panel dashboard: file upload, animated pipeline visualization with glowing nodes, real-time metrics, and an embedded terminal log -- all in a dark sci-fi theme with neon green and cyan accents.
 
 ---
 
 ## Features
 
-- 4-stage optimization pipeline: deduplication, dictionary encoding, field trimming, gzip compression
-- Two interfaces: animated terminal CLI and web dashboard
-- Real-time streaming progress via Server-Sent Events
-- Pipeline nodes that pulse and glow as data flows through
-- Animated data size bar that visibly shrinks
+- Issue detection engine with 4 analyzers (duplicates, repetition, whitespace, compression)
+- Primary issue callout with severity, impact percentage, and byte-level waste
+- Engineer-level explanations: why issues happen, impact on storage/perf/compression
+- Simulate fixes per-issue without mutating original data
+- State toggle between Original and Simulated views
+- Efficiency Score (0-100) with color-coded gauge
+- Projected impact at 1M records for each issue
+- Export optimized data (JSON/CSV) or full analysis reports
+- 4-stage optimization pipeline with animated visualization
+- Real-time streaming via Server-Sent Events
 - Embedded terminal panel with typing effect
-- Per-stage and total size reduction metrics
+- Terminal CLI with animated ASCII progress bars
 - JSON and CSV input support
-- Drag-and-drop file upload (web)
 
 ---
 
 ## Quick Start
 
-### Terminal (CLI)
+### Web Application
 
 ```bash
 git clone https://github.com/Positivitty/EntropyEngine.git
 cd EntropyEngine
-pip install -r requirements.txt
-python main.py samples/sample.json
-```
 
-### Web Application
-
-Start the backend and frontend in separate terminals:
-
-```bash
 # Terminal 1 - Backend
-cd EntropyEngine
 pip install -r web-backend/requirements.txt
 ./web-backend/run.sh
 
 # Terminal 2 - Frontend
-cd EntropyEngine/web-frontend
+cd web-frontend
 npm install
 npm run dev
 ```
 
-Open http://localhost:5173 and drop a JSON or CSV file.
+Open http://localhost:5173, drop a JSON/CSV file, and click **Analyze Issues**.
+
+### Terminal CLI
+
+```bash
+pip install -r requirements.txt
+python main.py samples/sample.json
+```
 
 ---
 
 ## How It Works
 
-| Stage | Description |
-|---|---|
-| **Deduplication** | Removes duplicate records, keeping only unique entries. |
-| **Dictionary Encoding** | Replaces repeated field values with compact integer codes. |
-| **Field Trimming** | Strips whitespace, null fields, and empty values. |
-| **Compression** | Applies gzip compression to the optimized payload. |
+### Issue Detection
 
-Each stage reports before/after byte counts. The web backend streams progress as Server-Sent Events so the frontend can animate each stage in real time.
+| Issue | What It Detects | Fix Stage |
+|---|---|---|
+| **Duplicate Records** | Exact row duplicates from ETL, merges, retries | Deduplication |
+| **String Repetition** | Low-cardinality fields storing full strings N times | Dictionary Encoding |
+| **Excess Whitespace** | Leading/trailing spaces, empty fields | Field Trimming |
+| **Compression Opportunity** | Structural redundancy in JSON/CSV format | gzip Compression |
+
+### Simulation System
+
+Simulate fixes one issue at a time without touching original data:
+1. Click **Simulate Fix** on any issue
+2. Watch the relevant pipeline node pulse and the size bar shrink
+3. Review the simulated reduction in the metrics panel
+4. Toggle between Original and Simulated views
+5. Export the optimized dataset or a full report
 
 ---
 
@@ -92,7 +106,8 @@ Each stage reports before/after byte counts. The web backend streams progress as
 
 | Component | Technology |
 |---|---|
-| Core Engine | Python (stdlib only) |
+| Issue Detection | Python (stdlib) |
+| Core Engine | Python (stdlib) |
 | Terminal UI | Rich |
 | Backend API | FastAPI + Uvicorn |
 | Frontend | React + Vite |
@@ -100,52 +115,53 @@ Each stage reports before/after byte counts. The web backend streams progress as
 
 ---
 
+## API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/upload` | Upload JSON/CSV file |
+| POST | `/analyze/{id}` | Detect issues and return report |
+| POST | `/simulate/{id}/{issue}` | Simulate fixing one issue (SSE) |
+| POST | `/process/{id}` | Run full pipeline (SSE) |
+| POST | `/apply/{id}` | Apply all fixes |
+| GET | `/results/{id}` | Get cached results |
+| GET | `/export/{id}` | Download data or report |
+
+---
+
 ## Architecture
 
 ```
 EntropyEngine/
-├── main.py                 # CLI entry point
-├── requirements.txt        # CLI dependencies (rich)
-├── samples/
-│   ├── sample.json         # Example dataset (50 records)
-│   └── sample.csv
-├── entropy/                # Core pipeline (stdlib only)
+├── main.py                 # Terminal CLI entry point
+├── entropy/                # Core engine (stdlib only)
+│   ├── issues.py           # Issue detection (duplicates, repetition, whitespace, compression)
 │   ├── loader.py           # JSON/CSV file loading
 │   ├── metrics.py          # Size tracking and formatting
 │   ├── pipeline.py         # Stage orchestration
 │   └── transforms.py       # Dedup, encoding, trim, gzip
 ├── ui/                     # Terminal rendering (rich)
-│   ├── theme.py            # Colors and boot messages
-│   ├── animations.py       # Progress bars and diagrams
-│   └── terminal.py         # UI controller
+│   ├── theme.py
+│   ├── animations.py
+│   └── terminal.py
 ├── web-backend/            # FastAPI server
-│   ├── app.py              # API endpoints (/upload, /process, /results)
+│   ├── app.py              # All API endpoints
 │   ├── requirements.txt
 │   └── run.sh
-└── web-frontend/           # React + Vite
-    └── src/
-        ├── App.jsx         # 4-panel grid layout
-        ├── App.css         # Marathon-style dark theme
-        ├── hooks/useEntropy.js    # State + SSE streaming
-        └── components/
-            ├── UploadPanel.jsx    # Drag-and-drop file upload
-            ├── PipelineView.jsx   # Animated pipeline nodes + size bar
-            ├── MetricsPanel.jsx   # Per-stage results + summary
-            └── TerminalPanel.jsx  # ASCII log with typing effect
-```
-
----
-
-## CLI Options
-
-```
-usage: main.py [-h] [--no-animation] file
-
-positional arguments:
-  file               Path to a JSON or CSV file
-
-optional arguments:
-  --no-animation     Skip animation delays
+├── web-frontend/           # React + Vite
+│   └── src/
+│       ├── App.jsx         # 4-panel grid layout
+│       ├── hooks/useEntropy.js
+│       └── components/
+│           ├── IssuesPanel.jsx     # Primary issue callout + issue cards
+│           ├── SimulationBanner.jsx # State toggle banner
+│           ├── UploadPanel.jsx
+│           ├── PipelineView.jsx
+│           ├── MetricsPanel.jsx
+│           └── TerminalPanel.jsx
+└── samples/
+    ├── sample.json
+    └── sample.csv
 ```
 
 ---
