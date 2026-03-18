@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 
-export default function UploadPanel({ fileInfo, onUpload, onRunPipeline, onReset, isProcessing, isComplete }) {
+export default function UploadPanel({ fileInfo, onUpload, onRunPipeline, onReset, isProcessing, isComplete, analysisComplete, onAnalyze }) {
   const [dragOver, setDragOver] = useState(false);
   const [uploading, setUploading] = useState(false);
   const inputRef = useRef(null);
@@ -41,6 +41,7 @@ export default function UploadPanel({ fileInfo, onUpload, onRunPipeline, onReset
   };
 
   const canRun = fileInfo && !isProcessing && !isComplete;
+  const canAnalyze = fileInfo && !isProcessing && !analysisComplete;
 
   return (
     <div className="panel panel-left">
@@ -82,6 +83,14 @@ export default function UploadPanel({ fileInfo, onUpload, onRunPipeline, onReset
           </>
         )}
       </div>
+
+      <button
+        className="btn btn-analyze"
+        disabled={!canAnalyze}
+        onClick={onAnalyze}
+      >
+        Analyze Issues
+      </button>
 
       <button
         className="btn btn-primary"

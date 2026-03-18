@@ -36,10 +36,22 @@ function AnimatedNumber({ value, duration = 500, suffix = '' }) {
   );
 }
 
-export default function MetricsPanel({ metrics, isComplete, originalSize, currentSize }) {
+export default function MetricsPanel({
+  metrics,
+  isComplete,
+  originalSize,
+  currentSize,
+  efficiencyScore,
+  simulationMode,
+  simulatedSize,
+  fileInfo,
+  onExport,
+}) {
   const totalReduction = originalSize && currentSize != null
     ? ((1 - currentSize / originalSize) * 100)
     : 0;
+
+  const scoreColor = efficiencyScore >= 70 ? '#00ff41' : efficiencyScore >= 40 ? '#ffd700' : '#ff4444';
 
   return (
     <div className="panel panel-right">
@@ -48,7 +60,45 @@ export default function MetricsPanel({ metrics, isComplete, originalSize, curren
         Metrics
       </div>
 
-      {metrics.length === 0 ? (
+      {/* Efficiency Score */}
+      {efficiencyScore != null && (
+        <div className="metrics-efficiency">
+          <div className="efficiency-label">Efficiency Score</div>
+          <div className="efficiency-big-number" style={{ color: scoreColor }}>
+            <AnimatedNumber value={efficiencyScore} />
+          </div>
+          <div className="efficiency-bar-track">
+            <div
+              className="efficiency-bar-fill"
+              style={{
+                width: `${efficiencyScore}%`,
+                background: scoreColor,
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Simulation size comparison */}
+      {simulationMode && simulatedSize != null && (
+        <div className="metrics-simulation-compare">
+          <div className="sim-compare-row">
+            <span className="sim-compare-label">Original</span>
+            <span className="sim-compare-value">{formatBytes(currentSize)}</span>
+          </div>
+          <div className="sim-compare-row">
+            <span className="sim-compare-label" style={{ color: '#ffd700' }}>Simulated</span>
+            <span className="sim-compare-value" style={{ color: '#ffd700' }}>{formatBytes(simulatedSize)}</span>
+          </div>
+          {currentSize != null && simulatedSize != null && (
+            <div className="sim-compare-savings">
+              Savings: {formatBytes(currentSize - simulatedSize)} ({((1 - simulatedSize / currentSize) * 100).toFixed(1)}%)
+            </div>
+          )}
+        </div>
+      )}
+
+      {metrics.length === 0 && efficiencyScore == null ? (
         <div className="empty-state">
           <div className="empty-icon">&equiv;</div>
           <div>Awaiting data</div>
@@ -88,6 +138,24 @@ export default function MetricsPanel({ metrics, isComplete, originalSize, curren
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* Export Buttons */}
+      {fileInfo && (
+        <div className="metrics-export-section">
+          <button
+            className="btn btn-export"
+            onClick={() => onExport(fileInfo.fileId, 'json', 'data')}
+          >
+            Export Data
+          </button>
+          <button
+            className="btn btn-export"
+            onClick={() => onExport(fileInfo.fileId, 'json', 'report')}
+          >
+            Export Report
+          </button>
         </div>
       )}
     </div>

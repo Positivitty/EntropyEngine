@@ -8,7 +8,7 @@ const STAGE_LABELS = {
   COMPRESS: 'Compress',
 };
 
-export default function PipelineView({ stages, activeStage, currentSize, originalSize }) {
+export default function PipelineView({ stages, activeStage, currentSize, originalSize, embedded }) {
   const sizePercent = originalSize && currentSize != null
     ? Math.max((currentSize / originalSize) * 100, 5)
     : 100;
@@ -23,13 +23,8 @@ export default function PipelineView({ stages, activeStage, currentSize, origina
     return 'idle';
   };
 
-  return (
-    <div className="panel panel-center">
-      <div className="panel-header" style={{ alignSelf: 'flex-start', width: '100%' }}>
-        <span className="dot"></span>
-        Pipeline
-      </div>
-
+  const content = (
+    <>
       <div className="pipeline-container">
         {stages.map((stage, i) => (
           <div key={stage.name} style={{ display: 'flex', alignItems: 'center' }}>
@@ -72,6 +67,20 @@ export default function PipelineView({ stages, activeStage, currentSize, origina
           </div>
         </div>
       </div>
+    </>
+  );
+
+  if (embedded) {
+    return <div className="pipeline-embedded">{content}</div>;
+  }
+
+  return (
+    <div className="panel panel-center">
+      <div className="panel-header" style={{ alignSelf: 'flex-start', width: '100%' }}>
+        <span className="dot"></span>
+        Pipeline
+      </div>
+      {content}
     </div>
   );
 }
