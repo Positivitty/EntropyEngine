@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { formatBytes } from '../hooks/useEntropy';
+import ScrambleText from './ScrambleText';
 
 function AnimatedNumber({ value, duration = 500, suffix = '' }) {
   const [display, setDisplay] = useState(0);
@@ -56,8 +57,8 @@ export default function MetricsPanel({
   return (
     <div className="panel panel-right">
       <div className="panel-header">
-        <span className="dot"></span>
-        Metrics
+        <span className="header-bar"></span>
+        <ScrambleText text="METRICS" />
       </div>
 
       {/* Efficiency Score */}

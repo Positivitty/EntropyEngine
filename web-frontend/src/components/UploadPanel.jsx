@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import ScrambleText from './ScrambleText';
 
 export default function UploadPanel({ fileInfo, onUpload, onRunPipeline, onReset, isProcessing, isComplete, analysisComplete, onAnalyze }) {
   const [dragOver, setDragOver] = useState(false);
@@ -46,8 +47,8 @@ export default function UploadPanel({ fileInfo, onUpload, onRunPipeline, onReset
   return (
     <div className="panel panel-left">
       <div className="panel-header">
-        <span className="dot"></span>
-        File Input
+        <span className="header-bar"></span>
+        <ScrambleText text="FILE INPUT" />
       </div>
 
       <div

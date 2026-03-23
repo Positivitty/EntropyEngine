@@ -5,6 +5,8 @@ import MetricsPanel from './components/MetricsPanel';
 import TerminalPanel from './components/TerminalPanel';
 import IssuesPanel from './components/IssuesPanel';
 import SimulationBanner from './components/SimulationBanner';
+import ScrambleText from './components/ScrambleText';
+import AsciiCube from './components/AsciiCube';
 import './App.css';
 
 function App() {
@@ -21,7 +23,6 @@ function App() {
     uploadFile,
     runPipeline,
     reset,
-    // New
     issues,
     primaryIssue,
     efficiencyScore,
@@ -37,26 +38,18 @@ function App() {
   } = useEntropy();
 
   const handleAnalyze = () => {
-    if (fileInfo) {
-      analyzeFile(fileInfo.fileId);
-    }
+    if (fileInfo) analyzeFile(fileInfo.fileId);
   };
 
   const handleSimulate = (issueId) => {
-    if (fileInfo) {
-      simulateIssue(fileInfo.fileId, issueId);
-    }
+    if (fileInfo) simulateIssue(fileInfo.fileId, issueId);
   };
 
   const handleApply = () => {
-    if (fileInfo) {
-      applyFixes(fileInfo.fileId);
-    }
+    if (fileInfo) applyFixes(fileInfo.fileId);
   };
 
-  const handleIgnore = () => {
-    // No-op for now — could remove issue from list
-  };
+  const handleIgnore = () => {};
 
   return (
     <div className="app-layout">
@@ -73,8 +66,8 @@ function App() {
 
       <div className="panel panel-center">
         <div className="panel-header" style={{ alignSelf: 'flex-start', width: '100%' }}>
-          <span className="dot"></span>
-          Pipeline
+          <span className="header-bar"></span>
+          <ScrambleText text="PIPELINE" />
         </div>
 
         {simulationMode && (
@@ -102,6 +95,13 @@ function App() {
           currentSize={currentSize}
           originalSize={originalSize}
           embedded
+        />
+
+        <AsciiCube
+          sizeRatio={originalSize && currentSize != null ? currentSize / originalSize : 1}
+          isProcessing={isProcessing}
+          isComplete={isComplete}
+          activeStage={activeStage}
         />
       </div>
 

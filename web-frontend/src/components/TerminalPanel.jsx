@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import ScrambleText from './ScrambleText';
 
 function formatTime(date) {
   const h = String(date.getHours()).padStart(2, '0');
@@ -63,8 +64,8 @@ export default function TerminalPanel({ logs }) {
   return (
     <div className="panel panel-bottom">
       <div className="terminal-header">
-        <span className="dot"></span>
-        System Log
+        <span className="header-bar"></span>
+        <ScrambleText text="SYSTEM LOG" />
       </div>
       <div className="terminal-body" ref={bodyRef}>
         {logs.map((log, i) => (
